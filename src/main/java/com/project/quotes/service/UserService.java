@@ -1,13 +1,16 @@
 package com.project.quotes.service;
 
 import com.project.quotes.model.ConfirmationToken;
+import com.project.quotes.model.Quote;
 import com.project.quotes.model.User;
 import com.project.quotes.repository.UserRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -60,6 +63,17 @@ public class UserService implements UserDetailsService {
         //TODO send email
 
         return token;
+    }
+
+    public void enableUser(String email) {
+        User savedUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException(
+                        String.format("Cannot Find User by Email %s", email)));
+
+        savedUser.setEnabled(true);
+
+        userRepository.save(savedUser);
+
     }
 }
 
