@@ -25,7 +25,6 @@ public class RegistrationController {
 
     @GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token")  String token) {
-        System.out.println("req recieved, token "+token);
         return registrationService.confirmToken(token);
     }
 }
