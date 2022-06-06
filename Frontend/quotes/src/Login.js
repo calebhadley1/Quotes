@@ -3,6 +3,7 @@ import AuthContext from "./context/AuthProvider";
 
 import axios from "./api/axios";
 const LOGIN_URL = '/login/'; //change this to whatever is in spring
+const REGISTER_URL = '/api/register'; //change this to whatever is in spring
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
@@ -29,9 +30,14 @@ const Login = () => {
         console.log(user,password);
 
         try {
+            var bodyFormData = new FormData();
+            bodyFormData.append("username", user);
+            bodyFormData.append("password", password);
+
             const response = await axios.post(LOGIN_URL, 
-                JSON.stringify({user, password}),
+                /*JSON.stringify({user, password}),*/
                 {
+                    data: bodyFormData,
                     headers: { 'Content-Type': 'application/json'},
                     withCredentials: true
                 }
