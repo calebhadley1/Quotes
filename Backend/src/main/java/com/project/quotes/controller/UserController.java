@@ -17,11 +17,6 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-    @PostMapping()
-    public ResponseEntity addUser(@RequestBody User user) {
-        userService.addUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
 
 //
 //    @PutMapping
@@ -37,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{email}")
     public ResponseEntity<UserDetails> getUserByEmail(@PathVariable String email) {
-        return ResponseEntity.ok(userService.loadUserByUsername(email));
+        return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
 //    @DeleteMapping("/{id}")

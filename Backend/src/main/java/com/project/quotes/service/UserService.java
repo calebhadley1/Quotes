@@ -4,6 +4,7 @@ import com.project.quotes.model.ConfirmationToken;
 import com.project.quotes.model.Quote;
 import com.project.quotes.model.User;
 import com.project.quotes.repository.UserRepository;
+import com.project.quotes.request.LoginRequest;
 import org.apache.tomcat.jni.Local;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +19,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -29,14 +30,42 @@ public class UserService implements UserDetailsService {
         this.confirmationTokenService = confirmationTokenService;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
+//                String.format("Cannot find User by Username %s", email)));
+//    }
+
+    public User getUserByEmail(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("Cannot find User by Username %s", email)));
     }
 
-    public String addUser(User user) {
-        return "worked";
+    //TODO migrate to spring security
+    public String login(LoginRequest request){
+        User user = getUserByEmail(request.getEmail());
+
+        boolean validPassword = bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword());
+
+        if(user == null && !validPassword){
+            throw new IllegalStateException("Invalid Login Credentials");
+        }
+        if(!user.isEnabled()){
+            throw new IllegalStateException("Account is Disabled");
+        }
+
+        //TODO send user to db and send confirmation token
+        String token = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                user
+        );
+
+        confirmationTokenService.saveConfirmationToken(confirmationToken);
+
+        return token;
     }
 
     public String signup(User user) {
