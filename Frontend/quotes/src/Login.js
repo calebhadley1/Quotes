@@ -1,16 +1,17 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./context/AuthProvider";
+import { ErrorMessages } from './constants/Errors';
 
 import axios from "./api/axios";
-const LOGIN_URL = '/login/'; //change this to whatever is in spring
-const REGISTER_URL = '/api/register'; //change this to whatever is in spring
+const LOGIN_URL = '/login';
+const REGISTER_URL = '/register';
 
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
-    const userRef = useRef();
+    const emailRef = useRef();
     const errRef = useRef();
 
-    const [user, setUser] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [roles, setRoles] = useState('');
     const [errMsg, setErrMsg] = useState('');
@@ -18,39 +19,40 @@ const Login = () => {
 
 
     useEffect(() => {
-        userRef.current.focus();
+        emailRef.current.focus();
     }, [])
 
     useEffect(() => {
         setErrMsg('');
-    }, [user, password])
+    }, [email, password])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user,password);
+        console.log(email,password);
 
         try {
-            var bodyFormData = new FormData();
-            bodyFormData.append("username", user);
-            bodyFormData.append("password", password);
-
             const response = await axios.post(LOGIN_URL, 
-                /*JSON.stringify({user, password}),*/
+                JSON.stringify({email, password}),
                 {
-                    data: bodyFormData,
                     headers: { 'Content-Type': 'application/json'},
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
-            const token = response?.data?.token;
-            setAuth({ user, password, roles, token })
-            setUser('');
+            const token = response?.data;
+            setAuth({ email, password, roles, token })
+            setEmail('');
             setPassword('');
             setSuccess(true);
         } catch (err) {
-            console.log(err);
-            setErrMsg(err);
+            if (err.response) {
+                if(err.response.status == 500)
+                    setErrMsg(ErrorMessages.INVALID_LOGIN_CREDENTIALS);
+                else
+                    setErrMsg(ErrorMessages.SERVER_ERROR);
+            }
+            else {
+                setErrMsg(ErrorMessages.SERVER_ERROR);
+            }
         }
     }
 
@@ -61,7 +63,7 @@ const Login = () => {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="email">
                     Email:
-                    <input type="text" id="email" ref={userRef} onChange={(e) => setUser(e.target.value)} value={user} required></input>
+                    <input type="text" id="email" ref={emailRef} onChange={(e) => setEmail(e.target.value)} value={email} required></input>
                 </label>
                 <label htmlFor="password">
                     Password:
