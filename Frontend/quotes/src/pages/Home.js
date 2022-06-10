@@ -1,10 +1,15 @@
+import AddQuote from "../components/addQuote";
 import Navbar from "../components/navbar";
+import QuotesList from "../components/quoteslist";
+import '../App.css';
 
 const Home = () => {
     return (
-        <div>
+        <div className="App">
             <Navbar/>
-            <p>Home page</p>
+            <h1>Home page</h1>
+            <QuotesList/>
+            <AddQuote/>
         </div>
     )
 }
