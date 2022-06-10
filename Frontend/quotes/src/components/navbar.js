@@ -5,16 +5,10 @@ const navbar= () =>{
     return (
     <div>
       <li>
-        <Link to="/">Dogs</Link>
+        <Link to="/">Sign Out</Link>
       </li>
       <li>
-        <Link to="/cats">Cats</Link>
-      </li>
-      <li>
-        <Link to="/sheeps">Sheeps</Link>
-      </li>
-      <li>
-        <Link to="/goats">Goats</Link>
+        <Link to="/cats">Home</Link>
       </li>
     </div>
     );

@@ -1,6 +1,8 @@
 package com.project.quotes.service;
 
 import com.project.quotes.request.LoginRequest;
+import com.project.quotes.response.AuthResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +14,7 @@ public class LoginService {
         this.userService = userService;
     }
 
-    public String login(LoginRequest request) {
+    public AuthResponse login(LoginRequest request) {
         return userService.login(request);
     }
 }

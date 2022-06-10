@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect, useContext } from 'react';
-import AuthContext from "./context/AuthProvider";
-import { ErrorMessages } from './constants/Errors';
+import { useNavigate } from 'react-router-dom'
+import AuthContext from "../context/AuthProvider";
+import { ErrorMessages } from '../constants/Errors';
 
-import axios from "./api/axios";
+import axios from "./../api/axios";
+const HOME_URL = '/home';
 const LOGIN_URL = '/login';
 const REGISTER_URL = '/register';
 
@@ -10,10 +12,11 @@ const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const emailRef = useRef();
     const errRef = useRef();
+    let navigate = useNavigate();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [roles, setRoles] = useState('');
+    const [role, setRoles] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState('');
 
@@ -38,14 +41,16 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            const token = response?.data;
-            setAuth({ email, password, roles, token })
+            const token = response?.data?.accessToken;
+            setAuth({ email, password, role, token })
+            setRoles(response?.data?.role)
             setEmail('');
             setPassword('');
             setSuccess(true);
+            navigate(HOME_URL);
         } catch (err) {
             if (err.response) {
-                if(err.response.status == 500)
+                if(err.response.status === 500)
                     setErrMsg(ErrorMessages.INVALID_LOGIN_CREDENTIALS);
                 else
                     setErrMsg(ErrorMessages.SERVER_ERROR);
@@ -55,6 +60,11 @@ const Login = () => {
             }
         }
     }
+
+    const navigateToRegister = () => {
+        navigate(REGISTER_URL);
+
+    };
 
     return (
         <section>
@@ -76,8 +86,7 @@ const Login = () => {
             <p>
                 Need an Account?<br/>
                 <span className="line">
-                    {/*put router link here*/}
-                    <a href="#">Sign Up</a>
+                    <a href="/register" onClick={navigateToRegister}>Sign Up</a>
                 </span>
             </p>
         </section>

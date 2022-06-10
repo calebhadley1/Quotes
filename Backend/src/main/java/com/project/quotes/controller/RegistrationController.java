@@ -1,7 +1,9 @@
 package com.project.quotes.controller;
 
 import com.project.quotes.request.RegistrationRequest;
+import com.project.quotes.response.AuthResponse;
 import com.project.quotes.service.RegistrationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +19,9 @@ public class RegistrationController {
 
     @CrossOrigin
     @PostMapping()
-    public String register(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<AuthResponse> register(@RequestBody RegistrationRequest request) {
         System.out.println(request);
-        return registrationService.register(request);
+        return ResponseEntity.ok(registrationService.register(request));
     }
 
     @GetMapping(path = "/confirm")

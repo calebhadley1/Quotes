@@ -4,6 +4,7 @@ import com.project.quotes.model.ConfirmationToken;
 import com.project.quotes.model.User;
 import com.project.quotes.model.UserRole;
 import com.project.quotes.request.RegistrationRequest;
+import com.project.quotes.response.AuthResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +23,7 @@ public class RegistrationService {
         this.userService = userService;
     }
 
-    public String register(RegistrationRequest request){
+    public AuthResponse register(RegistrationRequest request){
         boolean isValidEmail = emailValidator.test(request.getEmail());
         if(isValidEmail)
             return userService.signup(new User(

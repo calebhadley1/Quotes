@@ -5,7 +5,9 @@ import com.project.quotes.model.Quote;
 import com.project.quotes.model.User;
 import com.project.quotes.repository.UserRepository;
 import com.project.quotes.request.LoginRequest;
+import com.project.quotes.response.AuthResponse;
 import org.apache.tomcat.jni.Local;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -42,12 +44,24 @@ public class UserService {
     }
 
     //TODO migrate to spring security
-    public String login(LoginRequest request){
-        User user = getUserByEmail(request.getEmail());
+    public AuthResponse login(LoginRequest request){
 
+        //Check req has email and password
+        if(request.getEmail()==null || request.getPassword()==null)
+            throw new IllegalStateException("Invalid Login Credentials");
+
+        //Try fetch user
+        boolean userExists = userRepository.findByEmail(request.getEmail()).isPresent();
+
+        //Invalid user
+        if(!userExists)
+            throw new IllegalStateException("Invalid Login Credentials");
+
+        //Check passwords match
+        User user = getUserByEmail(request.getEmail());
         boolean validPassword = bCryptPasswordEncoder.matches(request.getPassword(), user.getPassword());
 
-        if(user == null && !validPassword){
+        if(user.getUsername() == null || !validPassword){
             throw new IllegalStateException("Invalid Login Credentials");
         }
         if(!user.isEnabled()){
@@ -65,10 +79,10 @@ public class UserService {
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
-        return token;
+        return new AuthResponse(user.getRole(),token);
     }
 
-    public String signup(User user) {
+    public AuthResponse signup(User user) {
         System.out.println("req recieved");
         System.out.println(user);
         boolean userExists = userRepository.findByEmail(user.getUsername()).isPresent();
@@ -93,7 +107,7 @@ public class UserService {
 
         //TODO send email
 
-        return token;
+        return new AuthResponse(user.getRole(),token);
     }
 
     public void enableUser(String email) {
