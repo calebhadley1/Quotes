@@ -37,7 +37,7 @@ const AddQuote = () => {
 
     return (
         <div className='form-box'>
-        <h7>Add Quote</h7>
+        <h6>Add Quote</h6>
         <form onSubmit={handleSubmit}>
             <label htmlFor="quoteName">
                 Quote

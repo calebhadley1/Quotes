@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Register from './pages/Register.js';
+import ConfirmAccount from './pages/ConfirmAccount';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="home" element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="confirm-account" element={<ConfirmAccount />} />
             <Route path="*" element={<Login />} />
           </Route>
         </Routes>

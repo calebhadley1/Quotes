@@ -6,7 +6,7 @@ import "../css/Form.css"
 
 import axios from "./../api/axios";
 
-const HOME_URL = '/home';
+const CONFIRM_URL = '/confirm-account';
 const LOGIN_URL = '/login';
 const REGISTER_URL = '/register';
 
@@ -53,7 +53,7 @@ const Register = () => {
                 setPassword('');
                 setPasswordConfirm('');
                 setSuccess(true);
-                navigate(HOME_URL);
+                navigate(CONFIRM_URL);
             } catch(err) {
                 console.log("error")
                 if (err.response) {
