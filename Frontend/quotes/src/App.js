@@ -5,7 +5,6 @@ import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import Register from './pages/Register.js';
 
-
 function App() {
   return (
     <main className="App">

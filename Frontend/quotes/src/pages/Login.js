@@ -63,26 +63,27 @@ const Login = () => {
 
     const navigateToRegister = () => {
         navigate(REGISTER_URL);
-
     };
 
     return (
         <section>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Sign In</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="email">
-                    Email:
-                    <input type="text" id="email" ref={emailRef} onChange={(e) => setEmail(e.target.value)} value={email} required></input>
-                </label>
-                <label htmlFor="password">
-                    Password:
-                    <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} value={password} required></input>
-                </label>
-                <button>
-                    Sign In
-                </button>
-            </form>
+            <div className='form-box'>
+                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <h5>Sign In</h5>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="email">
+                        Email:
+                        <input type="text" id="email" ref={emailRef} onChange={(e) => setEmail(e.target.value)} value={email} required></input>
+                    </label>
+                    <label htmlFor="password">
+                        Password:
+                        <input type="password" id="password" onChange={(e) => setPassword(e.target.value)} value={password} required></input>
+                    </label>
+                    <button className='submit-button'>
+                        Sign In
+                    </button>
+                </form>
+            </div>
             <p>
                 Need an Account?<br/>
                 <span className="line">

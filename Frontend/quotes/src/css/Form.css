@@ -1,0 +1,47 @@
+.form-box{
+    width: 300px;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    padding: 50px;
+    margin: 20px;
+    display: inline-block;
+}
+
+.form-box h5{
+    font-size: 35px ;
+    text-align: center;
+    color: #1B9AAA;
+    margin: 0 0 .5vh 0;
+}
+
+.form-box label{
+    display: block;
+    text-align: left;
+    font-size: 20px;
+    color: #050505;
+}
+
+
+.form-box input, textarea{
+    display: block;
+    width: 100%;
+    padding: .5rem .8rem .5rem .8rem;
+    margin: .9vw 0 ;
+    border: 2px solid #DDDBCB;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.form-box textarea{
+    height: 15vh;
+}
+
+.submit-button {
+    width: 80%;
+    height: 2rem;
+    color: #1B9AAA;
+    border: 0;
+    bottom: 0;
+    cursor: pointer;
+    font-size: 20px;
+}
