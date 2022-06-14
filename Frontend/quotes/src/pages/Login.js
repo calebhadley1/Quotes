@@ -83,13 +83,11 @@ const Login = () => {
                         Sign In
                     </button>
                 </form>
-            </div>
-            <p>
-                Need an Account?<br/>
-                <span className="line">
+                <p>
+                    Need an Account?<br/>
                     <a href="/register" onClick={navigateToRegister}>Sign Up</a>
-                </span>
-            </p>
+                </p>
+            </div>
         </section>
     )
 }

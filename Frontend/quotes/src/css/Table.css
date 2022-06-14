@@ -1,0 +1,40 @@
+.table {
+    width: 80%;
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    padding: 50px;
+    margin: 20px;
+    display: inline-block;
+}
+
+h5 {
+    font-size: 35px ;
+    text-align: center;
+    color: #1B9AAA;
+    margin: 0 0 .5vh 0;
+}
+
+table, th, tr td{
+    border: 1px solid #050505;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+th {
+    background-color: #1B9AAA;
+    color: #FFFFFF;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr {
+    background-color: #FFFFFF;
+}

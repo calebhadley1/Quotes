@@ -2,6 +2,7 @@ import { useRef, useState, useEffect, useContext } from 'react';
 import axios from '../api/axios';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import '../css/AddQuote.css'
 
 const AddQuote = () => {
 
@@ -35,8 +36,8 @@ const AddQuote = () => {
     }
 
     return (
-        <div>
-        <p>Add Quote</p>
+        <div className='form-box'>
+        <h7>Add Quote</h7>
         <form onSubmit={handleSubmit}>
             <label htmlFor="quoteName">
                 Quote
@@ -44,18 +45,20 @@ const AddQuote = () => {
             </label>
             <label htmlFor="quoteCategory">
                 Category
-                <select name="status" id="status" onChange={handleCategory}>
-                    <option value="BOOK">Book</option>
-                    <option value="JOURNAL">Journal</option>
-                    <option value="WEBSITE">Website</option>
-                    <option value="OTHER">Other</option>
-                  </select>
+                <div className='custom-select'>
+                    <select name="status" id="status" onChange={handleCategory}>
+                        <option value="BOOK">Book</option>
+                        <option value="JOURNAL">Journal</option>
+                        <option value="WEBSITE">Website</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
             </label>
             <label>
                 Date
                 <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
             </label>
-            <button>Submit</button>
+            <button className='submit-button'>Submit</button>
         </form>
         </div>
     )

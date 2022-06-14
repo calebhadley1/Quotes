@@ -1,6 +1,6 @@
 import axios from "../api/axios";
 import { useState } from "react";
-import '../quoteslist.css'
+import '../css/Table.css'
 
 const QuotesList = () => {
 
@@ -34,14 +34,16 @@ const QuotesList = () => {
     if(quotes.length === 0 && !noQuotes)
         getQuotes();
     return (
-        <><p>List of Quotes</p>
-        <div>
-            <table className="centerone">
+        <>
+        <div className="table">
+            <h5 className="title">Quotes</h5>
+            <table>
                 <thead>
                     <tr>
                         <th>Name</th>
                         <th>Category</th>
                         <th>Date</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>

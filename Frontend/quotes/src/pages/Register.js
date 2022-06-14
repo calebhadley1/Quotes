@@ -104,13 +104,11 @@ const Register = () => {
                         Sign up
                     </button>
                 </form>
-            </div>
-            <p >
+                <p >
                 Have an Account?<br/>
-                <span className="line">
-                    <a href="/login" onClick={navigateToLogin}>Login</a>
-                </span>
+                <a href="/login" onClick={navigateToLogin}>Login</a>
             </p>
+            </div>
         </section>
     )
 }

@@ -14,6 +14,13 @@
     margin: 0 0 .5vh 0;
 }
 
+.form-box h7{
+    font-size: 24px ;
+    text-align: center;
+    color: #1B9AAA;
+    margin: 0 0 .5vh 0;
+}
+
 .form-box label{
     display: block;
     text-align: left;
@@ -34,6 +41,10 @@
 
 .form-box textarea{
     height: 15vh;
+}
+
+.form-box a{
+    color: #1B9AAA;
 }
 
 .submit-button {
